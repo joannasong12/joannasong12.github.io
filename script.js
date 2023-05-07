@@ -26,7 +26,7 @@ function filterList(list, query){
 	filterButton.addEventListener('click', (event) => {
 		console.log('clicked FilterButton');
 
-		const formData new FormData(mainForm);
+		const formData = new FormData(mainForm);
 		const formProps = Object.fromEntries(formData);
 
 		console.log(formProps);
