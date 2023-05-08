@@ -27,7 +27,7 @@ function filterList(list, query){
 		console.log('clicked createChart button');
 
 		const formData = new FormData(mainForm);
-		const formProps= Object.fromEntries(formData);
+		const formProps = Object.fromEntries(formData);
 
 		console.log(formProps);
 	})
