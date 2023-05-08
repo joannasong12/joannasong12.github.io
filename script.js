@@ -7,11 +7,14 @@ function filterList(list, query){
   }
 
 
+  let myData = [];
+  let myLabels = [];
   async function mainEvent() {
 	const mainForm = document.querySelector('.main_form');
 	const createChart = document.querySelector('.create_chart');
 
 	let currentList = [];
+
 
 	mainForm.addEventListener('submit', async (submitEvent) => {
 		submitEvent.preventDefault();
@@ -20,8 +23,11 @@ function filterList(list, query){
 		const results = await fetch('https://data.princegeorgescountymd.gov/resource/jkwh-e4vd.json');
 
 		currentList = await results.json();
-		console.table(currentList);
+		console.log(currentList);
 	});
+
+
+
 
 	createChart.addEventListener('click', (event) => {
 		console.log('clicked createChart button');
@@ -30,6 +36,42 @@ function filterList(list, query){
 		const formProps = Object.fromEntries(formData);
 
 		console.log(formProps);
+
+		debugger;
+		currentTract = currentList.find((item) => item.tract_id == formProps.tract);
+
+		myData = [
+				currentTract.black,
+				currentTract.hispanic,
+				currentTract.white,
+				currentTract.asian,
+				currentTract.pacific_is
+			];
+
+		myLabels = ['black', 'hispanic', 'white', 'asian', 'pacific islander'];
+
+
 	})
   }
   document.addEventListener('DOMContentLoaded', async () => mainEvent());
+
+  const ctx = document.getElementById('myChart');
+		
+  new Chart(ctx, {
+	type: 'bar',
+	data: {
+	  labels: myLabels,
+	  datasets: [{
+		label: '# of Votes',
+		data: myData,
+		borderWidth: 1
+	  }]
+	},
+	options: {
+	  scales: {
+		y: {
+		  beginAtZero: true
+		}
+	  }
+	}
+  });
