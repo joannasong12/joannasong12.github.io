@@ -9,7 +9,7 @@ function filterList(list, query){
 
   async function mainEvent() {
 	const mainForm = document.querySelector('.main_form');
-	const filterButton = document.querySelector('.filter_button');
+	const createChart = document.querySelector('.create_chart');
 
 	let currentList = [];
 
@@ -23,16 +23,13 @@ function filterList(list, query){
 		console.table(currentList);
 	});
 
-	filterButton.addEventListener('click', (event) => {
-		console.log('clicked FilterButton');
+	createChart.addEventListener('click', (event) => {
+		console.log('clicked createChart button');
 
 		const formData = new FormData(mainForm);
-		const formProps = Object.fromEntries(formData);
+		const formProps= Object.fromEntries(formData);
 
 		console.log(formProps);
-		const newList = filterList(currentList, formProps.tract);
-		console.log(newList);
 	})
   }
-
   document.addEventListener('DOMContentLoaded', async () => mainEvent());
