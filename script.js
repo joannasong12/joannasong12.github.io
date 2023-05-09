@@ -32,6 +32,14 @@ function filterList(list, query){
 	createChart.addEventListener('click', (event) => {
 		console.log('clicked createChart button');
 
+		function removeData(myChart) {
+			myChart.data.labels.pop();
+			myChart.data.datasets.forEach((myData) => {
+				dataset.data.pop();
+			});
+			myChart.update();
+		}
+
 		const formData = new FormData(mainForm);
 		const formProps = Object.fromEntries(formData);
 
@@ -50,28 +58,30 @@ function filterList(list, query){
 
 		myLabels = ['black', 'hispanic', 'white', 'asian', 'pacific islander'];
 
+		const ctx = document.getElementById('myChart');
+		
+		new Chart(ctx, {
+		  type: 'bar',
+		  data: {
+			labels: myLabels,
+			datasets: [{
+			  label: '# of Votes',
+			  data: myData,
+			  borderWidth: 1
+			}]
+		  },
+		  options: {
+			scales: {
+			  y: {
+				beginAtZero: true
+			  }
+			}
+		  }
+		});
+
 
 	})
   }
   document.addEventListener('DOMContentLoaded', async () => mainEvent());
 
-  const ctx = document.getElementById('myChart');
-		
-  new Chart(ctx, {
-	type: 'bar',
-	data: {
-	  labels: myLabels,
-	  datasets: [{
-		label: '# of Votes',
-		data: myData,
-		borderWidth: 1
-	  }]
-	},
-	options: {
-	  scales: {
-		y: {
-		  beginAtZero: true
-		}
-	  }
-	}
-  });
+  
